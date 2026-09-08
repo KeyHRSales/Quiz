@@ -359,6 +359,43 @@ const QUIZZES = [
   o:["OSHA-certified safety managers who conduct site hazard assessments and create tailored safety manuals","The dedicated payroll specialist who audits timecard punch logs","Enwage recruiters who screen for certified heavy equipment operators","State Department of Labor officers who conduct mandatory regulatory audits"],a:0,
   why:"Key HR deploys internal OSHA-certified safety managers to conduct hands-on site walkthroughs and author customized safety plans tailored to the client's actual facility operations."}
  ]
+},
+{
+ title:"Salesforce Training Quiz", date:"09/08/26",
+ sub:"Salesforce knowledge check",
+ lede:"Ten questions on how we use Salesforce day to day: Leads, Opportunities, Accounts, Cases, and the data discipline the whole company depends on.",
+ questions:[
+ {t:"Leads and conversion",q:"Where should an unqualified prospective customer initially be logged in Salesforce?",
+  o:["Accounts","Opportunities","Leads","Cases"],a:2,
+  why:"New potential contacts and unqualified prospects belong in the Leads section."},
+ {t:"Leads and conversion",q:"What criteria must be met before converting a Lead into an Opportunity?",
+  o:["A pricing proposal has already been approved","The prospect has formally expressed interest","The prospect has signed the Client Services Agreement (CSA)","A support Case has been opened"],a:1,
+  why:"Leads are only converted to Opportunities once active interest has been confirmed."},
+ {t:"Opportunities",q:"What is the primary function of the Opportunity object in Salesforce?",
+  o:["Handling day-to-day post-sale customer support inquiries","Managing and tracking the active sales process","Storing cold, uncontacted market lists","Tracking historical billing invoices"],a:1,
+  why:"The Opportunity record is the central workspace for driving and managing deals."},
+ {t:"Opportunities",q:"Where should RFP documentation, customer submission files, and supporting sales collateral be uploaded on an Opportunity record?",
+  o:["Pricing Section","Notes and Files Section","Opportunity Chatter Feed only","Lead Conversion Log"],a:1,
+  why:"RFP files and submission documents belong in the Notes and Files related list."},
+ {t:"Opportunities",q:"How does a sales representative advance a deal through the stages (e.g., RFP, Proposal Requested, Proposal Presented, Signed CSA)?",
+  o:["By emailing Salesforce Support to update the status","By creating a new Opportunity record for every stage","By clicking the navigation/stage progression buttons across the top of the record","By deleting the Lead record"],a:2,
+  why:"Reps use the chevron path buttons across the top to advance from RFP to Signed CSA."},
+ {t:"Opportunities",q:"Where is deal-specific pricing information entered on an Opportunity?",
+  o:["The Pricing Section","The Notes and Files Section","The Lead Stage dropdown","The Case Description box"],a:0,
+  why:"Financial terms and quote pricing are specifically captured in the Pricing Section."},
+ {t:"Data discipline",q:"Which core company rule reflects Salesforce's role as our official system of record?",
+  o:["\u201CAlways finalize deals via email before updating Salesforce\u201D","\u201CIf it\u2019s not in Salesforce, it doesn\u2019t exist\u201D","\u201COpportunities should only be logged after contract signing\u201D","\u201COnly the Client Services team needs to log customer data\u201D"],a:1,
+  why:"Salesforce is the single source of truth for all sales activities and customer data."},
+ {t:"Accounts and Cases",q:"Once a prospect officially becomes a paying client, where is the ongoing relationship managed?",
+  o:["The Lead record","The Account record","The Opportunity stage tracker","A closed Case"],a:1,
+  why:"Converted, active clients and their overarching relationship reside under Accounts."},
+ {t:"Accounts and Cases",q:"What feature in Salesforce is used across teams to log, assign, and track client inquiries or service issues?",
+  o:["Notes","Cases","Stage Chevron","Lead Sources"],a:1,
+  why:"Cases are used by Client Services and support teams to resolve issues and log requests."},
+ {t:"Data discipline",q:"Why is it essential for the sales team to keep Opportunity data accurate and up to date?",
+  o:["It is optional and only used for personal reference","Client Services and other cross-functional teams rely on this data for handoffs and account management","Salesforce automatically deletes Opportunities inactive for 7 days","Leads cannot be deleted unless an Opportunity is archived"],a:1,
+  why:"Client Services and other cross-functional teams rely on Opportunity data for handoffs and ongoing account management."}
+ ]
 }
 ];
 
