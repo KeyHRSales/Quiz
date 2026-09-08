@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Key HR Knowledge Check</title>
+<title>Key HR Sales Academy | Quizzes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&display=swap" rel="stylesheet">
@@ -24,79 +24,79 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-body{
-  font-family:var(--font);
-  color:var(--ink);
-  background:#fff;
-  font-size:16px;
-  line-height:1.55;
-  -webkit-font-smoothing:antialiased;
-}
+body{font-family:var(--font);color:var(--ink);background:#fff;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
 .bar{height:6px;display:flex}
 .bar i{display:block;height:100%}
 .bar i:first-child{width:96px;background:var(--red)}
 .bar i:last-child{flex:1;background:var(--ink)}
 
 .shell{max-width:780px;margin:0 auto;padding:0 24px 96px}
-header.mast{padding:34px 0 0}
+header.mast{padding:34px 0 0;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
 .wordmark{font-family:var(--display);font-size:20px;letter-spacing:-.02em;line-height:1}
 .wordmark span{color:var(--red)}
 .masthead-sub{color:var(--muted);font-size:13px;margin-top:6px}
+.homelink{background:none;border:0;color:var(--muted);font-size:13px;font-weight:600;padding:2px 0;border-bottom:1px solid var(--line)}
+.homelink:hover{color:var(--red);border-bottom-color:var(--red)}
 
 h1{font-family:var(--display);font-size:40px;line-height:1.08;letter-spacing:-.025em;margin:28px 0 14px}
 h2{font-family:var(--display);font-size:22px;line-height:1.2;letter-spacing:-.02em;margin:0 0 12px}
 p.lede{font-size:17px;color:var(--charcoal);max-width:60ch;margin:0 0 26px}
 
-/* ---------- start screen ---------- */
+/* ---------- home ---------- */
+.qlist{margin:30px 0 0;border-top:1px solid var(--line)}
+.qcard{
+  display:block;width:100%;text-align:left;background:#fff;border:0;
+  border-bottom:1px solid var(--line);padding:22px 20px 22px 0;
+  font-family:var(--font);position:relative;transition:background .15s,padding .15s;
+}
+.qcard:hover{background:var(--wash);padding-left:16px;box-shadow:inset 3px 0 0 var(--red)}
+.qcard .row{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.qcard .name{font-family:var(--display);font-size:21px;letter-spacing:-.02em;color:var(--ink)}
+.qcard .when{font-size:13px;color:var(--muted);white-space:nowrap}
+.qcard .sub{font-size:15px;color:var(--charcoal);margin:5px 0 0;max-width:58ch}
+.qcard .stats{font-size:13px;color:var(--muted);margin:9px 0 0}
+.qcard .stats b{color:var(--ink);font-weight:600}
+.qcard .cta{font-size:14px;font-weight:600;color:var(--red);margin:11px 0 0}
+.homenote{font-size:13px;color:var(--muted);margin:26px 0 0}
+
+/* ---------- start ---------- */
 .facts{border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:36px;padding:16px 0;margin:0 0 30px}
 .fact b{display:block;font-family:var(--display);font-size:22px;line-height:1.1}
 .fact span{font-size:13px;color:var(--muted)}
-
 .field{margin:0 0 18px;max-width:420px}
 .field label{display:block;font-size:14px;font-weight:600;margin:0 0 6px}
-.field input{
-  width:100%;font-family:var(--font);font-size:16px;color:var(--ink);
-  padding:11px 13px;border:1px solid var(--line);border-radius:3px;background:#fff;
-}
+.field input{width:100%;font-family:var(--font);font-size:16px;color:var(--ink);padding:11px 13px;border:1px solid var(--line);border-radius:3px;background:#fff}
 .field input:focus{outline:2px solid var(--ink);outline-offset:1px;border-color:var(--ink)}
 .err{color:var(--wrong);font-size:13px;margin:-10px 0 16px;display:none}
 .err.show{display:block}
 
 /* ---------- buttons ---------- */
 button{font-family:var(--font);cursor:pointer;border-radius:3px}
-.btn{
-  background:var(--ink);color:#fff;border:1px solid var(--ink);
-  font-size:15px;font-weight:600;padding:12px 26px;
-}
+.btn{background:var(--ink);color:#fff;border:1px solid var(--ink);font-size:15px;font-weight:600;padding:12px 26px}
 .btn:hover{background:var(--red);border-color:var(--red)}
 .btn:disabled{background:#C9C9C9;border-color:#C9C9C9;cursor:not-allowed}
 .btn.ghost{background:#fff;color:var(--ink)}
 .btn.ghost:hover{background:var(--ink);color:#fff}
-button:focus-visible,a:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
 
 /* ---------- quiz ---------- */
 .track{height:3px;background:#EDEDED;margin:26px 0 0}
 .track i{display:block;height:100%;background:var(--ink);transition:width .25s ease}
 .qmeta{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0 0;font-size:13px;color:var(--muted)}
 .qmeta b{color:var(--ink);font-weight:600}
-
 .qtext{font-size:23px;font-weight:600;line-height:1.35;letter-spacing:-.015em;margin:14px 0 22px;max-width:60ch}
-
 fieldset{border:0;margin:0;padding:0}
 legend{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .opt{display:block;position:relative;border:1px solid var(--line);border-radius:3px;margin:0 0 10px;background:#fff}
 .opt input{position:absolute;opacity:0;width:1px;height:1px}
 .opt span.body{display:flex;gap:14px;padding:14px 16px;align-items:flex-start}
-.opt .key{
-  flex:0 0 26px;height:26px;border:1px solid var(--line);border-radius:50%;
-  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--charcoal)
-}
+.opt .key{flex:0 0 26px;height:26px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--charcoal)}
 .opt .txt{flex:1;padding-top:2px}
 .opt:hover{border-color:var(--charcoal)}
 .opt.picked{border-color:var(--ink);box-shadow:inset 3px 0 0 var(--red);background:var(--wash)}
 .opt.picked .key{background:var(--ink);border-color:var(--ink);color:#fff}
 .opt input:focus-visible + span.body{outline:2px solid var(--red);outline-offset:2px}
-
 .nav{display:flex;justify-content:space-between;gap:12px;margin:26px 0 0;border-top:1px solid var(--line);padding-top:20px}
 
 /* ---------- results ---------- */
@@ -109,16 +109,13 @@ legend{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)
 .verdict.fail b{color:var(--wrong)}
 .verdict span{font-size:14px;color:var(--muted)}
 .rule{height:4px;background:var(--red);width:120px;margin:20px 0 0}
-
 .sitter{display:flex;flex-wrap:wrap;gap:34px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin:26px 0 0;font-size:14px}
 .sitter div span{display:block;color:var(--muted);font-size:12px}
 .sitter div b{font-weight:600}
-
 table.topics{width:100%;border-collapse:collapse;margin:30px 0 0;font-size:14px}
 table.topics th{text-align:left;font-size:12px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--line);padding:0 8px 7px 0}
 table.topics td{padding:9px 8px 9px 0;border-bottom:1px solid #EFEFEF}
 table.topics td:last-child,table.topics th:last-child{text-align:right;padding-right:0}
-
 .review{margin:38px 0 0}
 .item{border-left:3px solid var(--line);padding:0 0 4px 16px;margin:0 0 26px}
 .item.right{border-left-color:var(--correct)}
@@ -133,7 +130,7 @@ table.topics td:last-child,table.topics th:last-child{text-align:right;padding-r
 .ans.good{background:var(--correct-wash);color:#0B5C37}
 .ans.bad{background:var(--wrong-wash);color:#8E1015}
 .ans.blank{background:var(--wash);color:var(--charcoal)}
-
+.why{font-size:14px;color:var(--charcoal);margin:8px 0 0;padding:0 0 0 11px;border-left:2px solid var(--line);max-width:62ch}
 .actions{display:flex;flex-wrap:wrap;gap:12px;margin:38px 0 0;border-top:1px solid var(--line);padding-top:24px}
 .tip{font-size:13px;color:var(--muted);margin:14px 0 0}
 footer.foot{margin:44px 0 0;border-top:1px solid var(--line);padding:16px 0 0;font-size:12px;color:var(--muted)}
@@ -146,10 +143,10 @@ footer.foot{margin:44px 0 0;border-top:1px solid var(--line);padding:16px 0 0;fo
   .qtext{font-size:19px}
   .bignum{font-size:60px}
   .shell{padding:0 18px 64px}
+  .qcard .row{flex-direction:column;gap:2px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
-/* ---------- print ---------- */
 @page{margin:0.55in 0.6in}
 @media print{
   body{font-size:11.5pt}
@@ -159,12 +156,9 @@ footer.foot{margin:44px 0 0;border-top:1px solid var(--line);padding:16px 0 0;fo
   header.mast{padding:10px 0 0}
   h1{font-size:26pt;margin:14px 0 8px}
   .bignum{font-size:52pt}
-  .item{page-break-inside:avoid;break-inside:avoid;margin-bottom:15px}
-  table.topics{page-break-inside:avoid;break-inside:avoid}
-  .scoreblock{page-break-inside:avoid;break-inside:avoid}
-  .ans{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .item,.verdict-tag,.rule,.bar i{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  a{text-decoration:none;color:inherit}
+  .item,table.topics,.scoreblock{page-break-inside:avoid;break-inside:avoid}
+  .item{margin-bottom:15px}
+  .ans,.item,.verdict-tag,.rule,.bar i{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style>
 </head>
@@ -175,32 +169,40 @@ footer.foot{margin:44px 0 0;border-top:1px solid var(--line);padding:16px 0 0;fo
 <div class="shell">
 
   <header class="mast">
-    <div class="wordmark">KEY<span>HR</span></div>
-    <div class="masthead-sub">Sales Academy knowledge check</div>
+    <div>
+      <div class="wordmark">KEY<span>HR</span></div>
+      <div class="masthead-sub" id="subhead">Sales Academy</div>
+    </div>
+    <button class="homelink no-print" id="tohome" style="display:none">All quizzes</button>
   </header>
 
-  <!-- ============ START ============ -->
-  <section id="start" class="screen on">
-    <h1>Payroll, compliance, risk and benefits</h1>
-    <p class="lede">Twenty questions covering the core Key HR service lines. Answer every question, then review your results and save a copy for your file.</p>
+  <!-- ============ HOME ============ -->
+  <section id="home" class="screen on">
+    <h1>Sales Academy quizzes</h1>
+    <p class="lede">Choose an assessment below. Enter your name and date before you begin, then save your results as a PDF and send the file to your trainer.</p>
+    <div class="qlist" id="qlist"></div>
+    <p class="homenote">Passing score is 85 percent on every assessment. You may retake a quiz as many times as you need.</p>
+    <footer class="foot">Key HR &middot; 605 E. Robinson St., Suite 500, Orlando, FL 32801</footer>
+  </section>
 
+  <!-- ============ START ============ -->
+  <section id="start" class="screen">
+    <h1 id="starttitle"></h1>
+    <p class="lede" id="startlede"></p>
     <div class="facts">
-      <div class="fact"><b>20</b><span>Questions</span></div>
-      <div class="fact"><b>5</b><span>Topic areas</span></div>
+      <div class="fact"><b id="fq">0</b><span>Questions</span></div>
+      <div class="fact"><b id="ft">0</b><span>Topic areas</span></div>
       <div class="fact"><b>85%</b><span>Passing score</span></div>
     </div>
-
     <div class="field">
       <label for="nm">Your name</label>
       <input id="nm" type="text" autocomplete="name" placeholder="First and last name">
     </div>
     <div class="err" id="nmerr">Enter your name to begin.</div>
-
     <div class="field">
       <label for="dt">Date</label>
       <input id="dt" type="date">
     </div>
-
     <button class="btn" id="go">Start the quiz</button>
   </section>
 
@@ -208,17 +210,14 @@ footer.foot{margin:44px 0 0;border-top:1px solid var(--line);padding:16px 0 0;fo
   <section id="quiz" class="screen">
     <div class="track"><i id="fill" style="width:0%"></i></div>
     <div class="qmeta">
-      <div>Question <b id="qnum">1</b> of 20</div>
+      <div>Question <b id="qnum">1</b> of <span id="qtot">0</span></div>
       <div id="topic"></div>
     </div>
-
     <p class="qtext" id="qtext"></p>
-
     <fieldset>
       <legend id="qlegend"></legend>
       <div id="opts"></div>
     </fieldset>
-
     <div class="nav">
       <button class="btn ghost" id="back">Back</button>
       <button class="btn" id="next" disabled>Next</button>
@@ -228,42 +227,60 @@ footer.foot{margin:44px 0 0;border-top:1px solid var(--line);padding:16px 0 0;fo
   <!-- ============ RESULTS ============ -->
   <section id="results" class="screen">
     <h1 id="rhead">Results</h1>
-
     <div class="scoreblock">
-      <div class="bignum" id="scorenum">0<small>/20</small></div>
-      <div class="verdict" id="verdict"><b>Pass</b><span id="pct">0% correct</span></div>
+      <div class="bignum" id="scorenum">0<small>/0</small></div>
+      <div class="verdict" id="verdict"><b>Passed</b><span id="pct">0% correct</span></div>
     </div>
     <div class="rule"></div>
-
     <div class="sitter">
       <div><span>Name</span><b id="rname"></b></div>
       <div><span>Date</span><b id="rdate"></b></div>
-      <div><span>Assessment</span><b>Key HR Sales Academy knowledge check</b></div>
+      <div><span>Assessment</span><b id="rassess"></b></div>
     </div>
-
     <table class="topics">
       <thead><tr><th>Topic area</th><th>Score</th></tr></thead>
       <tbody id="topicrows"></tbody>
     </table>
-
     <div class="review">
       <h2>Answer review</h2>
       <div id="reviewlist"></div>
     </div>
-
     <div class="actions no-print">
       <button class="btn" id="savepdf">Save as PDF</button>
-      <button class="btn ghost" id="retake">Retake the quiz</button>
+      <button class="btn ghost" id="retake">Retake this quiz</button>
+      <button class="btn ghost" id="backhome">All quizzes</button>
     </div>
     <p class="tip no-print">In the print dialog, choose "Save as PDF" as the destination, then send the file to your trainer.</p>
-
     <footer class="foot">Key HR &middot; 605 E. Robinson St., Suite 500, Orlando, FL 32801</footer>
   </section>
 
 </div>
 
 <script>
-const QUESTIONS = [
+/* =======================================================================
+   QUIZ LIBRARY
+   To add a quiz, copy the block below and paste it into the QUIZZES array.
+   "a" is the zero-based index of the correct option: 0=A, 1=B, 2=C, 3=D.
+   "why" is optional. Leave it off and no rationale shows in the review.
+
+   {
+     title:"Quiz #2", date:"00/00/00",
+     sub:"Short subtitle",
+     lede:"One or two sentences describing the quiz.",
+     questions:[
+       {t:"Topic name", q:"Question text?",
+        o:["Option A","Option B","Option C","Option D"], a:0,
+        why:"Optional rationale shown in the answer review."}
+     ]
+   }
+   ======================================================================= */
+
+const QUIZZES = [
+{
+ title:"Quiz #1", date:"09/08/26",
+ sub:"Core services knowledge check",
+ lede:"Twenty questions covering the core Key HR service lines. Answer every question, then review your results and save a copy for your file.",
+ questions:[
  {t:"Payroll",q:"Under Key HR's co-employment payroll framework, who retains daily management of the employees?",
   o:["Key HR's payroll specialist","The state labor board","The client","The insurance carrier"],a:2},
  {t:"Payroll",q:"Which of the following is NOT an included payment method under Key HR's Full-Service Payroll Management?",
@@ -304,41 +321,123 @@ const QUESTIONS = [
   o:["Free cosmetic surgery","24/7 virtual primary care and behavioral health access","Unlimited gym memberships","100% paid brand-name prescription drug coverage"],a:1},
  {t:"Benefits",q:"How does Key HR enable small businesses to secure competitive major medical premiums?",
   o:["By pooling thousands of employees together to gain large-group buying power","By requiring employees to pay 100% of the premium","By eliminating health insurance underwriting entirely","By restricting benefits strictly to monopolistic jurisdictions"],a:0}
+ ]
+},
+{
+ title:"Quiz #1 Retake", date:"09/08/26",
+ sub:"Targeted retest, version 2",
+ lede:"Ten focused questions on software add-ons, workers' compensation limits, pay-as-you-go, and safety. Read each scenario carefully and select the single best answer.",
+ questions:[
+ {t:"Software add-ons",q:"A prospect wants to implement formalized annual performance reviews and assign structured digital training courses to their staff. Which Key HR integrated add-on platform handles both Performance Management and the Learning Management System (LMS)?",
+  o:["SwipeClock","Enwage","Cornerstone","TimeCo"],a:2,
+  why:"Cornerstone is Key HR's designated add-on partner for both employee Performance Management workflows and the Learning Management System (LMS)."},
+ {t:"Software add-ons",q:"When presenting technology add-ons to a prospective client, how should you contrast SwipeClock/TimeCo with Cornerstone?",
+  o:["SwipeClock/TimeCo handle Time & Attendance, whereas Cornerstone manages Performance Management and LMS","SwipeClock/TimeCo handle Applicant Tracking, whereas Cornerstone handles gross-to-net payroll calculations","Cornerstone is used exclusively for hourly punch clocks, while TimeCo delivers leadership training","Both platforms provide identical benefits administration and COBRA notice management"],a:0,
+  why:"SwipeClock and TimeCo are integrated timekeeping and attendance solutions, while Cornerstone delivers talent development, performance reviews, and learning management."},
+ {t:"Software add-ons",q:"A growing client needs an integrated Applicant Tracking System (ATS) to post job openings, manage incoming resumes, and streamline candidate screening. Which partner solution does Key HR deploy for this?",
+  o:["Enwage","TimeCo","Kurens\u0113","Cornerstone"],a:0,
+  why:"Enwage is Key HR's specialized add-on technology platform for Applicant Tracking Systems (ATS) and candidate pipeline management."},
+ {t:"Software add-ons",q:"A staffing agency prospect asks which software platform Key HR integrates to streamline their candidate hiring pipeline and applicant tracking before onboarding begins. What is the correct platform?",
+  o:["Cornerstone LMS","Enwage ATS","SwipeClock Time & Attendance","Kurens\u0113 Pay Card Portal"],a:1,
+  why:"Applicant tracking and candidate pipeline management prior to digital onboarding are delivered via the Enwage ATS add-on."},
+ {t:"Workers' comp limits",q:"What standard policy limits and umbrella protection are provided on Key HR's nationwide, A-rated workers' compensation master policies?",
+  o:["$500,000 policy limits with a $1 million umbrella","$1 million policy limits with a $2 million umbrella","$2 million policy limits with a $5 million umbrella","$250,000 policy limits with an optional state catastrophic fund"],a:1,
+  why:"Key HR's nationwide workers' compensation program provides A-rated coverage with standard $1 million limits backed by a $2 million umbrella."},
+ {t:"Workers' comp limits",q:"A commercial general contractor asks for proof of coverage showing high employer liability thresholds before awarding a subcontract. What limits will Key HR's workers' comp Certificate of Insurance reflect?",
+  o:["$1,000,000 limits accompanied by a $2,000,000 umbrella","$500,000 limits accompanied by a $1,000,000 umbrella","$100,000 statutory minimums with no excess liability","Uncapped limits managed solely through state monopolistic pools"],a:0,
+  why:"Key HR certificates of insurance reflect strong nationwide master coverage of $1M primary policy limits plus a $2M umbrella policy."},
+ {t:"Pay-as-you-go",q:"What are the two primary financial and operational pain points eliminated when a client switches to Key HR's pay-as-you-go workers' compensation model?",
+  o:["Eliminates substantial upfront cash deposits and surprise year-end audit premium adjustments","Eliminates state payroll taxes and monthly health insurance carrier invoices","Waives all payroll processing fees and guarantees zero OSHA reporting requirements","Removes employer liability for employee injuries while waiving first-year premium costs"],a:0,
+  why:"Traditional workers' comp requires heavy upfront cash deposits, often 15 to 25 percent, and triggers surprise audit invoices at year-end. Key HR calculates real-time premiums on actual payroll each cycle."},
+ {t:"Pay-as-you-go",q:"A prospective client complains that their traditional standalone insurance carrier demands a 20% down payment and hit them with an unexpected $12,000 bill after their annual audit. How does Key HR solve this?",
+  o:["Key HR requires the state monopolistic fund to cover the audit deficiency","Key HR operates on a pay-as-you-go model tied directly to real-time payroll, requiring no upfront deposit and eliminating annual audit surprises","Key HR classifies all field workers as 1099 independent contractors to eliminate policy audits","Key HR delays workers' compensation premium billing until policy renewal at month twelve"],a:1,
+  why:"Because payroll and workers' comp are integrated, premiums are remitted on exact wages every pay run, eliminating both upfront cash deposits and painful annual audit adjustments."},
+ {t:"Safety",q:"Who performs job site safety walkthroughs, hazard evaluations, and custom safety manual drafting for Key HR clients?",
+  o:["State-appointed OSHA field compliance inspectors","Key HR's internal OSHA-certified safety managers","The client's local commercial insurance underwriting agent","Third-party volunteer peer review committees"],a:1,
+  why:"Workplace evaluations, hazard mitigation, and operational safety manuals are developed directly by Key HR's in-house OSHA-certified safety managers."},
+ {t:"Safety",q:"A prospect is anxious about OSHA violations and lacks written safety protocols for their warehouse equipment. What internal Key HR resource directly resolves this issue?",
+  o:["OSHA-certified safety managers who conduct site hazard assessments and create tailored safety manuals","The dedicated payroll specialist who audits timecard punch logs","Enwage recruiters who screen for certified heavy equipment operators","State Department of Labor officers who conduct mandatory regulatory audits"],a:0,
+  why:"Key HR deploys internal OSHA-certified safety managers to conduct hands-on site walkthroughs and author customized safety plans tailored to the client's actual facility operations."}
+ ]
+}
 ];
 
-const LETTERS = ["A","B","C","D"];
+/* ============ ENGINE ============ */
+const LETTERS = ["A","B","C","D","E","F"];
 const PASS = 0.85;
-const answers = new Array(QUESTIONS.length).fill(null);
-let i = 0, sitter = {name:"", date:""};
-
 const $ = id => document.getElementById(id);
-const show = id => {
-  ["start","quiz","results"].forEach(s => $(s).classList.toggle("on", s === id));
+
+let quiz = null, answers = [], i = 0, sitter = {name:"", date:""};
+
+function show(id){
+  ["home","start","quiz","results"].forEach(s => $(s).classList.toggle("on", s === id));
+  $("tohome").style.display = (id === "home") ? "none" : "inline-block";
   window.scrollTo(0,0);
-};
-
-// default the date to today, local time
-(function(){
+}
+function todayISO(){
   const d = new Date();
-  $("dt").value = [d.getFullYear(), String(d.getMonth()+1).padStart(2,"0"), String(d.getDate()).padStart(2,"0")].join("-");
-})();
-
+  return [d.getFullYear(), String(d.getMonth()+1).padStart(2,"0"), String(d.getDate()).padStart(2,"0")].join("-");
+}
 function prettyDate(v){
   if(!v) return "\u2014";
   const p = v.split("-");
   if(p.length !== 3) return v;
   const d = new Date(+p[0], +p[1]-1, +p[2]);
-  if(isNaN(d)) return v;
-  return d.toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"});
+  return isNaN(d) ? v : d.toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"});
+}
+function topicCount(q){ return new Set(q.questions.map(x => x.t)).size; }
+
+/* ---- home ---- */
+(function buildHome(){
+  const list = $("qlist");
+  QUIZZES.forEach((Q, n) => {
+    const b = document.createElement("button");
+    b.className = "qcard";
+    b.innerHTML =
+      '<div class="row"><span class="name"></span><span class="when"></span></div>'+
+      '<p class="sub"></p>'+
+      '<p class="stats"><b>'+Q.questions.length+'</b> questions &middot; <b>'+topicCount(Q)+'</b> topic areas &middot; 85% to pass</p>'+
+      '<p class="cta">Start quiz &rarr;</p>';
+    b.querySelector(".name").textContent = Q.title;
+    b.querySelector(".when").textContent = Q.date;
+    b.querySelector(".sub").textContent = Q.sub;
+    b.addEventListener("click", () => openQuiz(n));
+    list.appendChild(b);
+  });
+})();
+
+function openQuiz(n){
+  quiz = QUIZZES[n];
+  answers = new Array(quiz.questions.length).fill(null);
+  i = 0;
+  $("subhead").textContent = "Sales Academy \u00B7 " + quiz.title;
+  $("starttitle").textContent = quiz.sub;
+  $("startlede").textContent = quiz.lede;
+  $("fq").textContent = quiz.questions.length;
+  $("ft").textContent = topicCount(quiz);
+  $("qtot").textContent = quiz.questions.length;
+  $("dt").value = todayISO();
+  $("nmerr").classList.remove("show");
+  show("start");
+  $("nm").focus();
 }
 
+function goHome(){
+  quiz = null;
+  $("subhead").textContent = "Sales Academy";
+  show("home");
+}
+$("tohome").addEventListener("click", goHome);
+$("backhome").addEventListener("click", goHome);
+
+/* ---- quiz ---- */
 function render(){
-  const Q = QUESTIONS[i];
+  const Q = quiz.questions[i];
   $("qnum").textContent = i+1;
   $("topic").textContent = Q.t;
   $("qtext").textContent = Q.q;
   $("qlegend").textContent = Q.q;
-  $("fill").style.width = ((i)/QUESTIONS.length*100) + "%";
+  $("fill").style.width = (i / quiz.questions.length * 100) + "%";
 
   const box = $("opts");
   box.innerHTML = "";
@@ -359,7 +458,7 @@ function render(){
 
   $("back").disabled = (i === 0);
   $("next").disabled = (answers[i] === null);
-  $("next").textContent = (i === QUESTIONS.length-1) ? "Finish and score" : "Next";
+  $("next").textContent = (i === quiz.questions.length-1) ? "Finish and score" : "Next";
 }
 
 $("go").addEventListener("click", () => {
@@ -372,17 +471,18 @@ $("go").addEventListener("click", () => {
   render();
 });
 $("nm").addEventListener("keydown", e => { if(e.key === "Enter") $("go").click(); });
-
 $("back").addEventListener("click", () => { if(i > 0){ i--; render(); } });
 $("next").addEventListener("click", () => {
   if(answers[i] === null) return;
-  if(i < QUESTIONS.length-1){ i++; render(); } else { score(); }
+  if(i < quiz.questions.length-1){ i++; render(); } else { score(); }
 });
 
+/* ---- results ---- */
 function score(){
+  const QS = quiz.questions, total = QS.length;
   let correct = 0;
   const topics = {};
-  QUESTIONS.forEach((Q,n) => {
+  QS.forEach((Q,n) => {
     const ok = answers[n] === Q.a;
     if(ok) correct++;
     if(!topics[Q.t]) topics[Q.t] = {got:0,tot:0};
@@ -390,17 +490,18 @@ function score(){
     if(ok) topics[Q.t].got++;
   });
 
-  const pct = Math.round(correct/QUESTIONS.length*100);
-  const passed = (correct/QUESTIONS.length) >= PASS;
+  const pct = Math.round(correct/total*100);
+  const passed = (correct/total) >= PASS;
 
   $("rhead").textContent = sitter.name.split(" ")[0] + ", here are your results";
-  $("scorenum").innerHTML = correct + '<small>/' + QUESTIONS.length + '</small>';
+  $("scorenum").innerHTML = correct + '<small>/' + total + '</small>';
   $("pct").textContent = pct + "% correct";
   const v = $("verdict");
   v.className = "verdict " + (passed ? "pass" : "fail");
   v.querySelector("b").textContent = passed ? "Passed" : "Not yet passing";
   $("rname").textContent = sitter.name;
   $("rdate").textContent = prettyDate(sitter.date);
+  $("rassess").textContent = quiz.title + " \u00B7 " + quiz.sub;
 
   const rows = $("topicrows");
   rows.innerHTML = "";
@@ -413,14 +514,15 @@ function score(){
 
   const list = $("reviewlist");
   list.innerHTML = "";
-  QUESTIONS.forEach((Q,n) => {
+  QS.forEach((Q,n) => {
     const ok = answers[n] === Q.a;
     const wrap = document.createElement("div");
     wrap.className = "item " + (ok ? "right" : "wrong");
 
     const head = document.createElement("div");
     head.className = "head";
-    head.innerHTML = '<span>Question '+(n+1)+'</span><span>'+Q.t+'</span>';
+    head.innerHTML = '<span>Question '+(n+1)+'</span><span></span>';
+    head.lastChild.textContent = Q.t;
     const tag = document.createElement("span");
     tag.className = "verdict-tag";
     tag.textContent = ok ? "Correct" : "Incorrect";
@@ -428,7 +530,6 @@ function score(){
 
     const q = document.createElement("p");
     q.className = "q"; q.textContent = Q.q;
-
     wrap.appendChild(head); wrap.appendChild(q);
 
     const yours = document.createElement("div");
@@ -449,6 +550,12 @@ function score(){
       right.appendChild(document.createTextNode(Q.o[Q.a]));
       wrap.appendChild(right);
     }
+    if(Q.why){
+      const why = document.createElement("p");
+      why.className = "why";
+      why.textContent = Q.why;
+      wrap.appendChild(why);
+    }
     list.appendChild(wrap);
   });
 
@@ -460,6 +567,7 @@ $("retake").addEventListener("click", () => {
   answers.fill(null); i = 0;
   show("start");
   $("nm").value = sitter.name;
+  $("dt").value = sitter.date || todayISO();
 });
 </script>
 </body>
