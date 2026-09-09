@@ -396,6 +396,43 @@ const QUIZZES = [
   o:["It is optional and only used for personal reference","Client Services and other cross-functional teams rely on this data for handoffs and account management","Salesforce automatically deletes Opportunities inactive for 7 days","Leads cannot be deleted unless an Opportunity is archived"],a:1,
   why:"Client Services and other cross-functional teams rely on Opportunity data for handoffs and ongoing account management."}
  ]
+},
+{
+ title:"Submissions and Pricing", date:"09/08/26",
+ sub:"Sales process, underwriting, and pricing knowledge check",
+ lede:"Fifteen questions covering the five sales stages, the implementation handoff, risk underwriting and submission requirements, and how a PEO proposal is priced and billed.",
+ questions:[
+ {t:"Sales process",q:"What are the five official stages of the sales process from lead to onboarding?",
+  o:["Lead Generation, Initial Call, Needs Analysis, Proposal, Closing","Prospecting, Initial Outreach, Discovery/Diagnostic, Strategy & Sales Presentation, Client Service Agreement (CSA)","Outreach, Proposal, Negotiation, Contracting, Implementation","Marketing, Sales Call, Underwriting, Presentation, Final Execution"],a:1},
+ {t:"Sales process",q:"What is the primary objective of Stage II (Initial Outreach)?",
+  o:["Present the final pricing proposal and negotiate contract terms","Collect signed client service agreements and payroll tax returns","Confirm interest, gather basic qualifying info, and set the next call or move into discovery","Submit documents to Sales Operations for immediate underwriting approval"],a:2},
+ {t:"Sales process",q:"When preparing for Stage IV (Strategy & Sales Presentation), what is the preferred delivery format?",
+  o:["Formal written proposal sent strictly via email","In-person, face-to-face, or video call presentations","Recorded audio walkthrough sent via link","Automated self-guided slide deck through a web portal"],a:1},
+ {t:"Implementation handoff",q:"Which of the following forms must be completed during the Implementation Handoff after securing the signed CSA?",
+  o:["Sales to Implementation Transition Questionnaire and Sales Implementation Checklist","Annual Corporate Tax Clearance Form and W-2 Audit Verification","Underwriting Exception Waiver and OSHA Form 300 Summary","Master Services Agreement Checklist and Independent Contractor Questionnaire"],a:0},
+ {t:"Implementation handoff",q:"Once all closing documents and the signed CSA are finalized, what action must the producer take in Salesforce?",
+  o:["Move the tracker to \u201CUnderwriting Approved\u201D and archive the deal","Update close date, first pay date, upload forms/CSA, and move the tracker to \u201CClosed Won\u201D","Tag the implementation team in Chatter and leave the stage as \u201CPresentation\u201D","Export the opportunity to a CSV file and email it directly to Executive Leadership"],a:1},
+ {t:"Underwriting and submissions",q:"What are the baseline Risk Underwriting Guidelines for a standard submission?",
+  o:["At least 5 employees, $100,000 gross wages, high-risk tolerance","At least 10 employees, $250,000 gross wages, low-to-moderate risk industries, good historical risk performance","At least 25 employees, $500,000 gross wages, no industry restrictions","At least 15 employees, $150,000 gross wages, minimum 5 years in business"],a:1},
+ {t:"Underwriting and submissions",q:"Under what conditions are California operations considered for underwriting?",
+  o:["Automatically rejected regardless of size or history","Accepted unconditionally if employee count exceeds 5","Considered case-by-case; accounts should have over 25 WSEs with a clean loss history","Accepted only if gross wages exceed $1,000,000 annually"],a:2},
+ {t:"Underwriting and submissions",q:"What is required for a Standard PEO submission regarding loss runs?",
+  o:["1 year of loss runs from the most recent policy","2 years of loss runs; gaps require broker sign-off","3 years of currently valued loss runs (Letter of Historical Authority / LHA for gaps or no prior coverage)","5 years of audited loss runs accompanied by state labor department clearance"],a:2},
+ {t:"Underwriting and submissions",q:"In addition to standard submission items, what must be submitted for a Staffing prospect?",
+  o:["Staffing supplemental, End Client Location Details, and owner resumes if in business less than 3 years","DOT registration forms, OSHA 300 logs, and commercial auto certificates","Client contracts, surety bond certificates, and 5 years of audited balance sheets","Signed drug testing waivers, employee benefit census, and payroll tax returns for all 50 states"],a:0},
+ {t:"Underwriting and submissions",q:"When submitting a risk where a single claim exceeds $25,000, what additional documentation is required?",
+  o:["A sworn affidavit from the employee","Large loss details","Immediate on-site safety audit clearance","An EPLI deductible increase addendum"],a:1},
+ {t:"Underwriting and submissions",q:"For which specific industries must you ALWAYS inquire about both height exposure and group transportation?",
+  o:["Healthcare and Retail","Construction, Agriculture/Landscaping, and HVAC","Staffing and Professional Services","Manufacturing and Hospitality"],a:1},
+ {t:"Pricing and billing",q:"How is the target administrative fee calculated on a standard PEO proposal?",
+  o:["Fixed at $500 per company per month regardless of head count","Target administrative fee ($1,200 to $850 per employee, per year) multiplied by employee count","15% of annual net profit across all participating locations","A standard flat 5% markup on total workers' compensation premium"],a:1},
+ {t:"Pricing and billing",q:"Under the provided Starfish Insurance EPLI coverage, what is the deductible responsible to the client?",
+  o:["$10,000 in all states","$25,000 nationwide with no exceptions","$35,000 in all states, except California where it is $125,000","Key HR pays 100% of the deductible and premium across all states"],a:2},
+ {t:"Pricing and billing",q:"What is the operational purpose of the Loss Fund?",
+  o:["It prepays the client's annual workers' compensation premium","It pays for routine monthly payroll software upgrades and tech fees","It serves as an account reserve equal to the per-claim fee, used as a backup if the client cannot pay a claim fee, and is refunded if unused at termination","It is a non-refundable administrative setup charge deposited directly to Sales Ops"],a:2},
+ {t:"Pricing and billing",q:"Which of the following correctly lists the 5 core components that make up the total PEO billing rate?",
+  o:["FICA, FUTA, SUTA, Workers' Comp, and Admin Fee","Federal Income Tax, Social Security, Medicare, State Tax, and Setup Fee","SUTA, Workers' Comp, 401(k) Match, Health Care, and Technology Fee","FICA, FUTA, General Liability, Property Insurance, and Broker Commission"],a:0}
+ ]
 }
 ];
 
