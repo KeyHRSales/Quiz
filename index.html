@@ -85,6 +85,9 @@ button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
 .track i{display:block;height:100%;background:var(--ink);transition:width .25s ease}
 .qmeta{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0 0;font-size:13px;color:var(--muted)}
 .qmeta b{color:var(--ink);font-weight:600}
+.timer{font-variant-numeric:tabular-nums;font-weight:700;font-size:14px;color:var(--ink);border:1px solid var(--line);border-radius:3px;padding:2px 10px;white-space:nowrap}
+.timer.warn{color:#fff;background:var(--red);border-color:var(--red)}
+.expired{background:var(--wrong-wash);border-left:3px solid var(--wrong);color:#8E1015;font-size:14.5px;padding:11px 14px;margin:22px 0 0;max-width:62ch;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .qtext{font-size:23px;font-weight:600;line-height:1.35;letter-spacing:-.015em;margin:14px 0 22px;max-width:60ch}
 fieldset{border:0;margin:0;padding:0}
 legend{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
@@ -97,6 +100,15 @@ legend{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)
 .opt.picked{border-color:var(--ink);box-shadow:inset 3px 0 0 var(--red);background:var(--wash)}
 .opt.picked .key{background:var(--ink);border-color:var(--ink);color:#fff}
 .opt input:focus-visible + span.body{outline:2px solid var(--red);outline-offset:2px}
+.essay{width:100%;font-family:var(--font);font-size:16px;line-height:1.5;color:var(--ink);padding:12px 13px;border:1px solid var(--line);border-radius:3px;resize:vertical;min-height:170px}
+.essay:focus{outline:2px solid var(--ink);outline-offset:1px;border-color:var(--ink)}
+.essaynote{font-size:13px;color:var(--muted);margin:9px 0 0}
+.item.pending{border-left-color:var(--charcoal)}
+.pending .verdict-tag{background:var(--wash);color:var(--charcoal)}
+.response{white-space:pre-wrap;background:var(--wash);border:1px solid var(--line);border-radius:3px;padding:11px 13px;font-size:14.5px;max-width:62ch;margin:0}
+.response.empty{color:var(--muted);font-style:italic}
+.gradeline{border-top:1px dashed var(--line);margin:12px 0 0;padding:9px 0 0;font-size:13px;color:var(--muted)}
+.pendnote{background:var(--wash);border-left:3px solid var(--charcoal);font-size:14.5px;padding:11px 14px;margin:22px 0 0;max-width:62ch;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .nav{display:flex;justify-content:space-between;gap:12px;margin:26px 0 0;border-top:1px solid var(--line);padding-top:20px}
 
 /* ---------- results ---------- */
@@ -193,6 +205,7 @@ footer.foot{margin:44px 0 0;border-top:1px solid var(--line);padding:16px 0 0;fo
       <div class="fact"><b id="fq">0</b><span>Questions</span></div>
       <div class="fact"><b id="ft">0</b><span>Topic areas</span></div>
       <div class="fact"><b>85%</b><span>Passing score</span></div>
+      <div class="fact" id="factlimit"><b id="fl">5:00</b><span>Time limit</span></div>
     </div>
     <div class="field">
       <label for="nm">Your name</label>
@@ -203,6 +216,7 @@ footer.foot{margin:44px 0 0;border-top:1px solid var(--line);padding:16px 0 0;fo
       <label for="dt">Date</label>
       <input id="dt" type="date">
     </div>
+    <p class="tip" id="timenote" style="margin:0 0 20px">The clock starts the moment you click below. The quiz locks at zero and scores automatically, so answer what you can and keep moving.</p>
     <button class="btn" id="go">Start the quiz</button>
   </section>
 
@@ -210,8 +224,8 @@ footer.foot{margin:44px 0 0;border-top:1px solid var(--line);padding:16px 0 0;fo
   <section id="quiz" class="screen">
     <div class="track"><i id="fill" style="width:0%"></i></div>
     <div class="qmeta">
-      <div>Question <b id="qnum">1</b> of <span id="qtot">0</span></div>
-      <div id="topic"></div>
+      <div>Question <b id="qnum">1</b> of <span id="qtot">0</span> &middot; <span id="topic"></span></div>
+      <div class="timer" id="timer" style="display:none">5:00</div>
     </div>
     <p class="qtext" id="qtext"></p>
     <fieldset>
@@ -232,9 +246,12 @@ footer.foot{margin:44px 0 0;border-top:1px solid var(--line);padding:16px 0 0;fo
       <div class="verdict" id="verdict"><b>Passed</b><span id="pct">0% correct</span></div>
     </div>
     <div class="rule"></div>
+    <div class="pendnote" id="pending" style="display:none"></div>
+    <div class="expired" id="expired" style="display:none">Time expired. The quiz locked at the five minute mark and was scored automatically. Any question left blank is counted as incorrect.</div>
     <div class="sitter">
       <div><span>Name</span><b id="rname"></b></div>
       <div><span>Date</span><b id="rdate"></b></div>
+      <div id="timeused-wrap"><span>Time used</span><b id="rtime"></b></div>
       <div><span>Assessment</span><b id="rassess"></b></div>
     </div>
     <table class="topics">
@@ -262,9 +279,11 @@ footer.foot{margin:44px 0 0;border-top:1px solid var(--line);padding:16px 0 0;fo
    To add a quiz, copy the block below and paste it into the QUIZZES array.
    "a" is the zero-based index of the correct option: 0=A, 1=B, 2=C, 3=D.
    "why" is optional. Leave it off and no rationale shows in the review.
+   "mins" is the time limit in minutes. Decimals are fine: 7.5 renders as 7:30.
+   Standard is 30 seconds per question. Remove "mins" entirely for an untimed quiz.
 
    {
-     title:"Quiz #2", date:"00/00/00",
+     title:"Quiz #2", date:"00/00/00", mins:5,
      sub:"Short subtitle",
      lede:"One or two sentences describing the quiz.",
      questions:[
@@ -277,7 +296,7 @@ footer.foot{margin:44px 0 0;border-top:1px solid var(--line);padding:16px 0 0;fo
 
 const QUIZZES = [
 {
- title:"Quiz #1", date:"09/08/26",
+ title:"Quiz #1", date:"09/08/26", mins:10,
  sub:"Core services knowledge check",
  lede:"Twenty questions covering the core Key HR service lines. Answer every question, then review your results and save a copy for your file.",
  questions:[
@@ -324,7 +343,7 @@ const QUIZZES = [
  ]
 },
 {
- title:"Quiz #1 Retake", date:"09/08/26",
+ title:"Quiz #1 Retake", date:"09/08/26", mins:5,
  sub:"Targeted retest, version 2",
  lede:"Ten focused questions on software add-ons, workers' compensation limits, pay-as-you-go, and safety. Read each scenario carefully and select the single best answer.",
  questions:[
@@ -361,7 +380,7 @@ const QUIZZES = [
  ]
 },
 {
- title:"Salesforce Training Quiz", date:"09/08/26",
+ title:"Salesforce Training Quiz", date:"09/08/26", mins:5,
  sub:"Salesforce knowledge check",
  lede:"Ten questions on how we use Salesforce day to day: Leads, Opportunities, Accounts, Cases, and the data discipline the whole company depends on.",
  questions:[
@@ -398,7 +417,7 @@ const QUIZZES = [
  ]
 },
 {
- title:"Submissions and Pricing", date:"09/08/26",
+ title:"Submissions and Pricing", date:"09/08/26", mins:7.5,
  sub:"Sales process, underwriting, and pricing knowledge check",
  lede:"Fifteen questions covering the five sales stages, the implementation handoff, risk underwriting and submission requirements, and how a PEO proposal is priced and billed.",
  questions:[
@@ -433,6 +452,77 @@ const QUIZZES = [
  {t:"Pricing and billing",q:"Which of the following correctly lists the 5 core components that make up the total PEO billing rate?",
   o:["FICA, FUTA, SUTA, Workers' Comp, and Admin Fee","Federal Income Tax, Social Security, Medicare, State Tax, and Setup Fee","SUTA, Workers' Comp, 401(k) Match, Health Care, and Technology Fee","FICA, FUTA, General Liability, Property Insurance, and Broker Commission"],a:0}
  ]
+},
+{
+ title:"PEO Discovery Process Quiz", date:"09/08/26", mins:5,
+ sub:"Discovery call knowledge check",
+ lede:"Ten questions on running an effective discovery call: what the step is for, what to uncover about operations and exposures, how to map their current state, and how to set up the presentation.",
+ questions:[
+ {t:"Discovery fundamentals",q:"What is the primary objective of the discovery step?",
+  o:["To deliver pricing and close the contract immediately","To pitch and sell all service offerings to the prospect","To gather relevant information about the prospect to create a presentation strategy","To complete new client onboarding and payroll setup"],a:2},
+ {t:"Discovery fundamentals",q:"True or False: The discovery phase is the best time in the sales cycle to pitch and sell your services to the prospect.",
+  o:["True","False"],a:1},
+ {t:"Operations and exposures",q:"Which of the following is NOT one of the general operational details you need to gather during discovery?",
+  o:["Full understanding of operations","Total employee count","Physical office/job locations","The prospect's personal credit score"],a:3},
+ {t:"Operations and exposures",q:"When assessing a prospect with driving, height, or depth exposures, which specific details should you uncover?",
+  o:["Radius of travel and mode of transportation","Maximum height and maximum depth","Number of employees traveling together and length of overnight trips","All of the above"],a:3},
+ {t:"Current state and pain points",q:"What areas should you explore to understand how the prospect manages the employee life cycle?",
+  o:["Hiring and onboarding","Payroll and benefits","Employee training","All of the above"],a:3},
+ {t:"Current state and pain points",q:"Which of the following workforce management technologies should you identify during the call?",
+  o:["LMS (Learning Management Systems)","ATS (Applicant Tracking Systems)","Timekeeping Software","All of the above"],a:3},
+ {t:"Current state and pain points",q:"Why is it essential to identify the prospect's current providers (payroll, workers' comp, benefits, HR, compliance, etc.) and pain points?",
+  o:["To find out what is causing friction and what they would look for in an ideal solution","To report their current vendors to regulatory agencies","To immediately match their current pricing line-by-line during the call","To convince them to cancel their contracts before the call ends"],a:0},
+ {t:"Next steps and documents",q:"How should you set expectations regarding required underwriting and discovery documents?",
+  o:["Tell the prospect to mail physical paper copies without prior notice","Let them know what you need and tell them you will send an email detailing all required items","Demand that they upload everything before the current discovery call ends","Avoid asking for documents until the final contract is signed"],a:1},
+ {t:"Next steps and documents",q:"When scheduling the presentation call to review services and pricing, what is the proper timeline to establish?",
+  o:["Later that same afternoon","At least a week out, setting the expectation that documents must be returned at least 3 days prior","Exactly 24 hours later, with documents provided during the presentation","One month out, with documents due the day before"],a:1},
+ {t:"Next steps and documents",q:"What critical information must you confirm regarding additional decision-makers or attendees before ending the call?",
+  o:["Full name","Professional title","Email address","All of the above"],a:3}
+ ]
+},
+{
+ title:"Week 2 Pop Quiz", date:"09/11/26", mins:10.5,
+ sub:"PEO 101, platform solutions, risk management, and prospecting",
+ lede:"Closed book. No notes, no phones, no search, no AI. Eighteen questions on PEO fundamentals, risk, underwriting documents, platform partners, and prospecting. The clock does not stop.",
+ questions:[
+ {t:"PEO fundamentals",q:"What contractual legal agreement establishes the relationship between a client company and a PEO, allocating employer responsibilities?",
+  o:["Service Level Agreement (SLA)","Client Service Agreement (CSA)","Master Services Directive (MSD)","Workforce Administration Pact (WAP)"],a:1},
+ {t:"PEO fundamentals",q:"Under the co-employment model, which operational responsibility remains exclusively under the control of the client company?",
+  o:["Remitting state and federal payroll tax filings","Securing master workers' compensation policies","Day-to-day supervision, core operations, and setting compensation","Administering quarterly Form 941 federal returns"],a:2},
+ {t:"PEO fundamentals",q:"Which independent accreditation is held by Key HR, representing the industry \u201Cgold standard\u201D for financial assurance and operational integrity?",
+  o:["SHRM-SCP Enterprise","ESAC Accreditation","ISO-9001 Compliance","AICPA Platinum"],a:1},
+ {t:"PEO fundamentals",q:"What is the fundamental difference between a PEO and an Administrative Services Organization (ASO)?",
+  o:["An ASO provides workers' compensation coverage under a master policy, whereas a PEO does not.","An ASO acts as the sole employer of record for international workers.","An ASO provides administrative back-office HR support without establishing a co-employment relationship or sharing statutory liability.","A PEO only handles payroll, whereas an ASO handles full medical insurance underwriting."],a:2},
+ {t:"PEO fundamentals",q:"Which of the following defines an Employer of Record (EOR) arrangement?",
+  o:["The client company retains all tax liability and payroll responsibilities.","The third-party EOR becomes the full legal employer of record for workers, handling all compliance, taxes, and benefits.","It is an informal consulting agreement designed exclusively for medical clinics.","Employees are split 50/50 between two competitive leasing companies."],a:1},
+ {t:"Risk and workers' comp",q:"In a Master Workers' Compensation Policy arrangement through a PEO:",
+  o:["Each client receives an entirely separate individual policy under their own bureau ID number.","Clients obtain coverage exclusively from state-run government funds.","A single policy is issued to the PEO with client companies listed as additional insureds under one experience modification rate.","The client maintains full legal responsibility for state claims audits and premium deposits."],a:2},
+ {t:"Risk and workers' comp",q:"Which of the following sets of states operate as \u201CMonopolistic States,\u201D requiring employers to purchase workers' compensation exclusively through state-operated funds?",
+  o:["Florida, Georgia, North Carolina, and South Carolina","California, New York, New Jersey, and Illinois","Ohio, North Dakota, Washington, and Wyoming","Texas, Oklahoma, Louisiana, and Arkansas"],a:2},
+ {t:"Risk and workers' comp",q:"Which insurance coverage protects an employer against civil lawsuits stemming from claims of wrongful termination, sexual harassment, or workplace discrimination?",
+  o:["General Commercial Liability (GL)","Errors & Omissions (E&O)","Employment Practices Liability Insurance (EPLI)","Commercial Property Casualty (CPC)"],a:2},
+ {t:"Underwriting documents",q:"What is the standard industry application form required to collect company details, operational descriptions, and job classifications for underwriting Workers' Compensation?",
+  o:["IRS Form 941","ACORD 130","COBRA Census Form","Form W-4 Schedule C"],a:1},
+ {t:"Underwriting documents",q:"What official insurance document serves as an employer's verifiable claims \u201Ccredit report,\u201D showing past claims, paid losses, and open reserves over prior years?",
+  o:["Payroll Summary Register","Workers' Compensation Declaration Page","Loss Run Report","Group Health Questionnaire (GHQ)"],a:2},
+ {t:"Underwriting documents",q:"When an underwriting prospect has no prior workers' compensation coverage or has verified gaps in coverage, what document must be completed by an owner/officer?",
+  o:["Loss History Affidavit","Certificate of Insurance Waiver","Quarterly 940 Reconciliation","E-Verify Exception Form"],a:0},
+ {t:"Benefits and platform",q:"How does the ZayZoon Earned Wage Access (EWA) integration operate for client employers?",
+  o:["The employer funds a revolving credit account with a local bank.","It functions as an interest-bearing personal loan repaid over 12 months.","There is zero cost to the employer; employees access earned wages for a $5 flat fee, automatically settled via payroll direct deposit.","The employer manually calculates daily cash advances and issues physical petty cash."],a:2},
+ {t:"Benefits and platform",q:"What electronic pay solution does Key HR partner with to deliver paperless payroll, mobile money management, and financial literacy to unbanked employees?",
+  o:["Venmo Enterprise","Kurense Prepaid Solutions","Paychex FlexCard","Chime Commercial"],a:1},
+ {t:"Benefits and platform",q:"Which partner software powers Key HR's advanced time tracking, automated overtime alerts, mobile geofencing, and biometric timekeeping?",
+  o:["Swipeclock","ADP Vantage","QuickBooks Time Tracking","Kronos Legacy"],a:0},
+ {t:"Prospecting and ICP",q:"What is Key HR's ideal prospective client profile in terms of company size and annual gross payroll?",
+  o:["1 to 5 employees; minimum $50,000 gross payroll","10 to 500+ employees; minimum $250,000 gross payroll","500 to 5,000 employees; minimum $10 Million gross payroll","Sole proprietorships with independent contractor 1099 teams only"],a:1},
+ {t:"Prospecting and ICP",q:"Which of the following industries or risk categories is considered RESTRICTED exposure that Key HR avoids?",
+  o:["Hospitality and boutique hotel management","HVAC, residential plumbing, and electrical services","Hazmat remediation, armed security guards, and tree trimming at height","Franchise restaurants and multi-unit dining establishments"],a:2},
+ {t:"Sister companies",q:"Which Key HR sister company delivers full-service commercial insurance brokerage (BOP, General Liability, E&O, Commercial Auto)?",
+  o:["Frontline Funding","Oak Street Technologies","Enwage Insurance Solutions","Frontline HRO"],a:3},
+ {t:"Sister companies",q:"What service does Frontline Funding provide to staffing agencies and high-growth commercial enterprises?",
+  o:["Direct equity buyouts and venture financing","Invoice factoring and customized payroll funding to bridge cash flow gaps","On-site OSHA safety inspections","Health insurance claims adjustment"],a:1}
+
+ ]
 }
 ];
 
@@ -442,8 +532,37 @@ const PASS = 0.85;
 const $ = id => document.getElementById(id);
 
 let quiz = null, answers = [], i = 0, sitter = {name:"", date:""};
+let tick = null, deadline = 0, timedOut = false, scored = false, usedSecs = 0;
+
+function clockText(s){
+  s = Math.max(0, Math.round(s));
+  return Math.floor(s/60) + ":" + String(s%60).padStart(2,"0");
+}
+function stopClock(){ if(tick){ clearInterval(tick); tick = null; } }
+function startClock(){
+  stopClock();
+  if(!quiz.mins){ $("timer").style.display = "none"; return; }
+  deadline = Date.now() + quiz.mins*60000;
+  const t = $("timer");
+  t.style.display = "inline-block";
+  const paint = () => {
+    const left = (deadline - Date.now())/1000;
+    t.textContent = clockText(left);
+    t.classList.toggle("warn", left <= 60);
+    if(left <= 0){
+      stopClock();
+      t.textContent = "0:00";
+      timedOut = true;
+      usedSecs = quiz.mins*60;
+      score();
+    }
+  };
+  paint();
+  tick = setInterval(paint, 250);
+}
 
 function show(id){
+  if(id !== "quiz") stopClock();
   ["home","start","quiz","results"].forEach(s => $(s).classList.toggle("on", s === id));
   $("tohome").style.display = (id === "home") ? "none" : "inline-block";
   window.scrollTo(0,0);
@@ -459,7 +578,9 @@ function prettyDate(v){
   const d = new Date(+p[0], +p[1]-1, +p[2]);
   return isNaN(d) ? v : d.toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"});
 }
-function topicCount(q){ return new Set(q.questions.map(x => x.t)).size; }
+function topicCount(q){ return new Set(q.questions.filter(x => x.type !== "text").map(x => x.t)).size; }
+function mcOf(q){ return q.questions.filter(x => x.type !== "text").length; }
+function essayOf(q){ return q.questions.filter(x => x.type === "text").length; }
 
 /* ---- home ---- */
 (function buildHome(){
@@ -470,7 +591,10 @@ function topicCount(q){ return new Set(q.questions.map(x => x.t)).size; }
     b.innerHTML =
       '<div class="row"><span class="name"></span><span class="when"></span></div>'+
       '<p class="sub"></p>'+
-      '<p class="stats"><b>'+Q.questions.length+'</b> questions &middot; <b>'+topicCount(Q)+'</b> topic areas &middot; 85% to pass</p>'+
+      '<p class="stats">'+(essayOf(Q)
+        ? '<b>'+mcOf(Q)+'</b> multiple choice &middot; <b>'+essayOf(Q)+'</b> short answer'
+        : '<b>'+Q.questions.length+'</b> questions &middot; <b>'+topicCount(Q)+'</b> topic areas')+
+        ' &middot; '+clockText(Q.mins*60)+'</p>'+
       '<p class="cta">Start quiz &rarr;</p>';
     b.querySelector(".name").textContent = Q.title;
     b.querySelector(".when").textContent = Q.date;
@@ -488,10 +612,15 @@ function openQuiz(n){
   $("starttitle").textContent = quiz.sub;
   $("startlede").textContent = quiz.lede;
   $("fq").textContent = quiz.questions.length;
+  $("fq").nextElementSibling.textContent = essayOf(quiz) ? "Questions (incl. " + essayOf(quiz) + " written)" : "Questions";
   $("ft").textContent = topicCount(quiz);
   $("qtot").textContent = quiz.questions.length;
   $("dt").value = todayISO();
   $("nmerr").classList.remove("show");
+  timedOut = false; scored = false; usedSecs = 0;
+  $("factlimit").style.display = quiz.mins ? "block" : "none";
+  $("timenote").style.display = quiz.mins ? "block" : "none";
+  if(quiz.mins) $("fl").textContent = clockText(quiz.mins*60);
   show("start");
   $("nm").focus();
 }
@@ -515,6 +644,25 @@ function render(){
 
   const box = $("opts");
   box.innerHTML = "";
+
+  if(Q.type === "text"){
+    const ta = document.createElement("textarea");
+    ta.className = "essay";
+    ta.placeholder = "Type your answer here.";
+    ta.value = answers[i] || "";
+    ta.addEventListener("input", () => { answers[i] = ta.value; });
+    box.appendChild(ta);
+    const n = document.createElement("p");
+    n.className = "essaynote";
+    n.textContent = "Short answer. This one is scored by your trainer, not automatically.";
+    box.appendChild(n);
+    $("back").disabled = (i === 0);
+    $("next").disabled = false;
+    $("next").textContent = (i === quiz.questions.length-1) ? "Finish and submit" : "Next";
+    ta.focus();
+    return;
+  }
+
   Q.o.forEach((text, idx) => {
     const lab = document.createElement("label");
     lab.className = "opt" + (answers[i] === idx ? " picked" : "");
@@ -531,8 +679,9 @@ function render(){
   });
 
   $("back").disabled = (i === 0);
-  $("next").disabled = (answers[i] === null);
-  $("next").textContent = (i === quiz.questions.length-1) ? "Finish and score" : "Next";
+  $("next").disabled = quiz.mins ? false : (answers[i] === null);
+  $("next").textContent = (i === quiz.questions.length-1)
+    ? (essayOf(quiz) ? "Finish and submit" : "Finish and score") : "Next";
 }
 
 $("go").addEventListener("click", () => {
@@ -543,20 +692,27 @@ $("go").addEventListener("click", () => {
   sitter.date = $("dt").value;
   show("quiz");
   render();
+  startClock();
 });
 $("nm").addEventListener("keydown", e => { if(e.key === "Enter") $("go").click(); });
 $("back").addEventListener("click", () => { if(i > 0){ i--; render(); } });
 $("next").addEventListener("click", () => {
-  if(answers[i] === null) return;
+  if(!quiz.mins && answers[i] === null) return;
   if(i < quiz.questions.length-1){ i++; render(); } else { score(); }
 });
 
 /* ---- results ---- */
 function score(){
-  const QS = quiz.questions, total = QS.length;
+  if(scored) return;
+  scored = true;
+  stopClock();
+  if(quiz.mins && !timedOut) usedSecs = Math.min(quiz.mins*60, quiz.mins*60 - (deadline - Date.now())/1000);
+  const QS = quiz.questions;
+  const total = mcOf(quiz), essays = essayOf(quiz);
   let correct = 0;
   const topics = {};
   QS.forEach((Q,n) => {
+    if(Q.type === "text") return;
     const ok = answers[n] === Q.a;
     if(ok) correct++;
     if(!topics[Q.t]) topics[Q.t] = {got:0,tot:0};
@@ -567,15 +723,25 @@ function score(){
   const pct = Math.round(correct/total*100);
   const passed = (correct/total) >= PASS;
 
+  $("pending").style.display = essays ? "block" : "none";
+  if(essays) $("pending").textContent =
+    "The score above covers the " + total + " multiple choice questions only. Your " + essays +
+    " written answers are printed below for your trainer to read and score. This result is not final until they do.";
+
   $("rhead").textContent = sitter.name.split(" ")[0] + ", here are your results";
   $("scorenum").innerHTML = correct + '<small>/' + total + '</small>';
   $("pct").textContent = pct + "% correct";
   const v = $("verdict");
   v.className = "verdict " + (passed ? "pass" : "fail");
-  v.querySelector("b").textContent = passed ? "Passed" : "Not yet passing";
+  v.querySelector("b").textContent = (passed ? "Passed" : "Not yet passing") + (essays ? " (multiple choice)" : "");
   $("rname").textContent = sitter.name;
   $("rdate").textContent = prettyDate(sitter.date);
   $("rassess").textContent = quiz.title + " \u00B7 " + quiz.sub;
+  $("expired").style.display = timedOut ? "block" : "none";
+  $("timeused-wrap").style.display = quiz.mins ? "block" : "none";
+  if(quiz.mins) $("rtime").textContent = timedOut
+    ? "Full " + clockText(quiz.mins*60) + " (locked)"
+    : clockText(usedSecs) + " of " + clockText(quiz.mins*60);
 
   const rows = $("topicrows");
   rows.innerHTML = "";
@@ -589,6 +755,26 @@ function score(){
   const list = $("reviewlist");
   list.innerHTML = "";
   QS.forEach((Q,n) => {
+    if(Q.type === "text"){
+      const w = document.createElement("div");
+      w.className = "item pending";
+      const hd = document.createElement("div");
+      hd.className = "head";
+      hd.innerHTML = '<span class="verdict-tag">Trainer review</span><span>Question '+(n+1)+'</span><span></span>';
+      hd.lastChild.textContent = Q.t;
+      const qq = document.createElement("p");
+      qq.className = "q"; qq.textContent = Q.q;
+      const resp = document.createElement("p");
+      const txt = (answers[n] || "").trim();
+      resp.className = "response" + (txt ? "" : " empty");
+      resp.textContent = txt || "No answer submitted.";
+      const gl = document.createElement("p");
+      gl.className = "gradeline";
+      gl.textContent = "Trainer score: ______ / " + (Q.pts || 0) + "        Initials: ______";
+      w.appendChild(hd); w.appendChild(qq); w.appendChild(resp); w.appendChild(gl);
+      list.appendChild(w);
+      return;
+    }
     const ok = answers[n] === Q.a;
     const wrap = document.createElement("div");
     wrap.className = "item " + (ok ? "right" : "wrong");
@@ -639,6 +825,7 @@ function score(){
 $("savepdf").addEventListener("click", () => window.print());
 $("retake").addEventListener("click", () => {
   answers.fill(null); i = 0;
+  timedOut = false; scored = false; usedSecs = 0;
   show("start");
   $("nm").value = sitter.name;
   $("dt").value = sitter.date || todayISO();
